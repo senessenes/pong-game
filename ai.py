@@ -1,12 +1,10 @@
-# Simple Pong in Python 3 for Beginners
-# By @TokyoEdTech
-# Part 10: Simplifying Your Code (One Year and a Half Later!)
+
 import random
 import turtle
-import os
+
 
 wn = turtle.Screen()
-wn.title("Pong by @TokyoEdTech")
+wn.title("Pong by @senessenes")
 wn.bgcolor("black")
 wn.setup(width=800, height=600)
 wn.tracer(0)
@@ -40,8 +38,8 @@ ball1.shape("square")
 ball1.color("green")
 ball1.penup()
 ball1.goto(0, 0)
-ball1.dx = 0.60
-ball1.dy = -0.60
+ball1.dx = 0.70
+ball1.dy = -0.70
 
 # Pen
 pen = turtle.Turtle()
@@ -50,7 +48,7 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
-pen.write("Player A: 0  Player B: 0", align="center", font=("Courier", 24, "normal"))
+pen.write("You: 0 AI: 0", align="center", font=("Courier", 24, "normal"))
 
 # Function
 def paddle_a_up():
@@ -85,9 +83,9 @@ def ai(ai,ball):
 
     aiy=ai.ycor()
     bally=ball.ycor()
-    if(aiy>bally and aiy>-215):
+    if(aiy>bally and aiy>-240 and abs(ball.xcor()-ai.xcor())<275):
         ai.sety(aiy-aispeed)
-    if(aiy<bally and aiy<215):
+    if(aiy<bally and aiy<240 and  abs(ball.xcor()-ai.xcor())<275):
         ai.sety(aiy+aispeed)
 
 
@@ -103,12 +101,12 @@ while True:
     if ball1.ycor() > 290:
         ball1.sety(290)
         ball1.dy *= -1
-        os.system("afplay bounce.wav&")
+
 
     if ball1.ycor() < -290:
         ball1.sety(-290)
         ball1.dy *= -1
-        os.system("afplay bounce.wav&")
+
 
     if ball1.xcor() > 390:
         ball1.goto(0, 0)
@@ -117,7 +115,7 @@ while True:
         ball1.dx *= -1
         score_a += 1
         pen.clear()
-        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
+        pen.write("You: {}  AI: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
 
     if ball1.xcor() < -390:
         ball1.goto(0, 0)
@@ -126,16 +124,16 @@ while True:
         ball1.dx *= -1
         score_b += 1
         pen.clear()
-        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
+        pen.write("You: {}  AI: {}".format(score_a, score_b), align="center", font=("Courier", 24, "normal"))
 
     # Paddle and ball collisions
     if (ball1.xcor() > 340 and ball1.xcor() < 350) and (ball1.ycor() < paddle_b.ycor() + 50 and ball1.ycor() > paddle_b.ycor() -50):
         ball1.setx(340)
         ball1.dx *= -1
-        os.system("afplay bounce.wav&")
+
 
     if (ball1.xcor() < -340 and ball1.xcor() > -350) and (ball1.ycor() < paddle_a.ycor() + 50 and ball1.ycor() > paddle_a.ycor() -50):
         ball1.setx(-340)
         ball1.dx *= -1
-        os.system("afplay bounce.wav&")
+
 
